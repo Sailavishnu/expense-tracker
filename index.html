@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="image.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Current Balance</h1>
+        <div class="total-balance" id="mainBalance">$0.00</div>
+
+        <div class="summary-grid">
+            <div class="stat-pill income">
+                <i class="fas fa-arrow-down"></i>
+                <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted)">INCOME</div>
+                    <div class="stat-value" id="totalIncome">$0.00</div>
+                </div>
+            </div>
+            <div class="stat-pill expense">
+                <i class="fas fa-arrow-up"></i>
+                <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted)">EXPENSES</div>
+                    <div class="stat-value" id="totalExpense">$0.00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-title">
+                Recent Transactions
+                <button onclick="clearAll()"
+                    style="background:none; border:none; color:var(--danger); font-size: 0.8rem; cursor:pointer">
+                    <h2>Clear All</h2>
+                </button>
+            </div>
+            <div class="table-container">
+                <table id="transactionTable">
+                    <thead>
+                        <tr>
+                            <th>DATE</th>
+                            <th autocomplete="off">DESCRIPTION</th>
+                            <th>CATEGORY</th>
+                            <th style="text-align: right">AMOUNT</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+                <div id="emptyState" class="empty-state">
+                    <i class="fas fa-folder-open" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                    <p>No transactions yet. Add your first record!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Expense Breakdown</div>
+            <canvas id="categoryChart"></canvas>
+            <div id="chartLegend" style="margin-top: 1rem;"></div>
+        </div>
+    </div>
+
+    <div class="fab-container">
+        <button class="fab btn-inc" onclick="openModal('income')">
+            <i class="fas fa-plus"></i> Income
+        </button>
+        <button class="fab btn-exp" onclick="openModal('expense')">
+            <i class="fas fa-minus"></i> Expense
+        </button>
+    </div>
+
+    <div id="transactionModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle" style="margin-bottom: 1.5rem;">Add Transaction</h2>
+            <form id="transactionForm">
+                <input type="hidden" id="transType">
+                <div class="form-group">
+                    <label>Amount</label>
+                    <input type="number" id="amount" step="0.01" required placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" id="description" required placeholder="e.g. Monthly Salary or Grocery">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="category" required>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <button type="submit" id="submitBtn" class="submit-btn">Save Transaction</button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
